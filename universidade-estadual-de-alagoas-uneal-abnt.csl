@@ -10,13 +10,13 @@
     <link href="https://www.abntcatalogo.com.br/norma.aspx?ID=408006" rel="documentation"/>
     <author>
       <name>Wellyngton Chaves Monteiro da Silva</name>
-      <email>wellyngton.silva@uneal.edu.br</email>
+      <email>wellyngton@uneal.edu.br</email>
       <uri>http://www.uneal.edu.br</uri>
     </author>
     <category citation-format="author-date"/>
     <category field="generic-base"/>
     <summary>De acordo com ABNT-NBR 10520.2002 e ABNT-NBR 6023.2018</summary>
-    <updated>2020-06-30T16:31:59+00:00</updated>
+    <updated>2020-10-29T19:02:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="pt-BR">
@@ -147,8 +147,11 @@ do autor. Na regra da ABNT o sobrenome deve aparecer com todas as letras em caix
 
   <!--A macro 'access' é utilizada em arquivos de páginas da web. Ela é responsável por exibir a URL do site pesquisado e a data do acesso, além do DOI -->
   <macro name="access">
+    <text variable="ISSN" prefix=" ISSN: " suffix="."/>
+    <text variable="ISBN" prefix=" ISBN: " suffix="."/>
     <text variable="DOI" prefix=" DOI: " suffix="."/>
-    <text variable="URL" prefix=" Disponível em: &lt;" suffix="&gt;."/>
+    <!-- <text variable="URL" prefix=" Disponível em: &lt;" suffix="&gt;."/> RETIREI AS ENTRADAS DAS URLs, CONFORME ABNT -->
+    <text variable="URL" prefix=" Disponível em: " suffix="."/>
     <date variable="accessed" prefix=". Acesso em: " suffix=".">
       <date-part name="day" suffix=" "/>
       <date-part name="month" form="short" suffix=". " text-case="lowercase"/>
@@ -220,7 +223,7 @@ exceto em arquivos do tipo 'artigo de jornal, artigo de revista, artigo de peri�
         </choose>
       </if>
       <else>
-        <text value="[s.l: s.n.]"/>
+        <text value="[s.l.: s.n.]"/>
       </else>
     </choose>
   </macro>
@@ -353,6 +356,7 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
             <text variable="page" prefix="p. "/>
 	            <!--Inseri este campo 'extra' caso queira colocar alguma observacao, como 'nome da coleção', 'nome da série' etc. -->
 	            <!-- <text variable="note" prefix=". " suffix=""/> -->
+            		<text macro="collection-title" prefix=". (" suffix=")."/> <!-- AQUI INSERE A COLEÇÃO OU SÉRIE DA OBRA -->
           </group>
         </group>
       </else-if>
@@ -365,6 +369,14 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
   <macro name="genre">
     <text variable="genre"/>
   </macro>
+												<!-- ORIENTADOR: PARA INSERIR NO PREENCHIMENTO DOS DADOS DA TESE -->
+  <macro name="orientador">
+    <text variable="orientador"/>
+  </macro>
+  <macro name="folhas">							<!-- INSERE A QUANTIDADE DE FOLHAS NO PREENCHIMENTO DOS DADOS DA TESE -->
+    <text variable="folhas"/>
+  </macro>
+
   <macro name="section">
     <choose>
       <if match="any" variable="section issue">
@@ -464,13 +476,15 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
             <!--Traducao INSERI DA ABNT (ver como funciona)-->
             <text macro="translator" suffix=". "/>
             <!--Edicao-->
-            <text macro="edition" suffix=". "/>
+            <text macro="edition" suffix="., "/> <!-- ADICIONEI A VÍRGULA PARA SEPARAR A EDIÇÃO DO LOCAL DE PUBLICAÇÃO -->
             <!--Local, data, etc-->
             <text macro="publisher" suffix=". "/>
-	            <!--Inseri este campo 'extra' caso queira colocar alguma observacao-->
+          <text variable="folhas" suffix="p. "/>									<!-- ADICIONEI A QUANTIDADE DE PÁGINAS NA OBRA, BASTA INSERIR NO CAMPO "EXTRA" A OPÇÃO "FOLHAS: n.º de páginas" -->
+	            <!-- Inseri este campo 'extra' caso queira colocar alguma observacao -->
 	            <text variable="note" suffix=". "/>
+            <text macro="collection-title" prefix="(" suffix=")."/>	<!-- AQUI INSERE A COLEÇÃO OU SÉRIE DA OBRA -->
             <!--Dados complementares "pagina, volume"-->
-            <text macro="locators"/>
+            <!--<text macro="locators"/>-->							<!-- REMOVIDO PARA EVITAR DUPLICIDADE DE INFORMAÇÃO SOBRE A SÉRIE OU COLEÇÃO DA OBRA -->
             <text macro="access"/>
           </group>
         </else-if>
@@ -492,7 +506,7 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
             <text macro="container-title" suffix=". "/>
             <!--Traducao INSERI DA ABNT (ver como funciona) -->
             <text macro="translator" suffix=". "/>
-            <text variable="collection-title" suffix=" "/>
+<!--            <text variable="collection-title" suffix=" "/>  AQUI INSERIA A SÉRIE OU COLEÇÃO DENTRO DO TEXTO -->
             <!--Edicao-->
             <text macro="edition" suffix=". "/>
             <!--Local, data, etc-->
@@ -532,7 +546,9 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
             <text macro="author" suffix=". "/>
             <!--Titulo-->
             <text macro="title" suffix=". "/>
+            <text macro="orientador" prefix="Orientador: " suffix=". "/> 												<!-- INSERINDO ORIENTADOR NA TESE -->
             <text macro="issued-year" suffix=". "/>
+            <text macro="folhas" suffix=" f. "/>																		<!-- INSERINDO FOLHAS DA TESE -->
             <!--Tipo-->
             <text macro="genre" suffix=" - "/>
             <!--Local, data, etc-->
