@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" version="1.0" class="in-text" initialize="false" demote-non-dropping-particle="never" default-locale="pt-BR">
   <info>
-	<!-- ESTE ESTILO FOI CONSTRUÍDO A PARTIR DO MODELO DA ABNT (fizemos ajustes, mas precisamos creditar os créditos aos autores originais) -->
+	<!-- ESTE ESTILO FOI CONSTRUÍDO A PARTIR DO MODELO DA ABNT (com diversos ajustes, mas os créditos permanecem aos autores originais) -->
     <title>Universidade Estadual de Alagoas - UNEAL [ABNT] (Portuguese - Brazil)</title>
     <title-short>UNEAL-ABNT</title-short>
     <id>http://www.zotero.org/styles/universidade-estadual-de-alagoas-uneal-abnt</id>
@@ -16,10 +16,17 @@
     <category citation-format="author-date"/>
     <category field="generic-base"/>
     <summary>De acordo com ABNT-NBR 10520.2002 e ABNT-NBR 6023.2018</summary>
-    <updated>2020-10-29T19:02:00+00:00</updated>
+    <updated>2022-02-08T19:02:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="pt-BR">
+
+<!--
+		UTILITÁRIOS (para serem inseridos no campo EXTRA do Zotero):
+			publisher-place: quando não existir espaço para LUGAR da publicação (ex.: publisher-place: Maceió OU QUANDO NECESSÁRIO, publisher-place: Maceió, AL)
+			orientador: para digitar o nome do orientador de Teses e Dissertações (ex.: orientador: José Maria)
+-->
+
     <terms>
       <!--Abreviações dos meses do ano -->
       <term name="month-01" form="short">jan.</term>
@@ -56,7 +63,7 @@
     </terms>
   </locale>
 
-  <!--A macro 'container-contribuitor' mostra os nomes dos editores, SOBRENOME, INICIAIS PRENOMES, sendo as inicias separadas por ponto -->
+  <!--A macro 'container-contributor' mostra os nomes dos editores, SOBRENOME, INICIAIS PRENOMES, sendo as inicias separadas por ponto -->
   <macro name="container-contributors">
     <choose>
       <if type="chapter">
@@ -87,14 +94,15 @@
     </choose>
   </macro>
 
-  <!--A macro 'translator' mostra os nomes dos tradutores, SOBRENOME, INICIAIS PRENOMES, sendo as inicias separadas por ponto -->
-  <!-- ESTA INFORMACAO EU IMPORTEI DIRETAMENTE DA ABNT -->
+  <!--A macro 'translator' mostra os nomes dos tradutores, conforme a NBR 6023, de 2018 -->
   <macro name="translator">
-    <names variable="translator" delimiter="; ">
-      <name delimiter="; " sort-separator=" " delimiter-precedes-last="always" prefix="Tradução: ">
-        <name-part name="given" text-case="capitalize-first"/>
+    <text value="Tradução "/>
+    <names variable="translator" delimiter=", ">
+      <name delimiter=", " sort-separator=" " delimiter-precedes-last="always">
+        <name-part name="given"/>
         <name-part name="family" text-case="capitalize-first"/>
       </name>
+      <et-al font-style="normal"/>
     </names>
   </macro>
 
@@ -150,7 +158,7 @@ do autor. Na regra da ABNT o sobrenome deve aparecer com todas as letras em caix
     <text variable="ISSN" prefix=" ISSN: " suffix="."/>
     <text variable="ISBN" prefix=" ISBN: " suffix="."/>
     <text variable="DOI" prefix=" DOI: " suffix="."/>
-    <!-- <text variable="URL" prefix=" Disponível em: &lt;" suffix="&gt;."/> RETIREI AS ENTRADAS DAS URLs, CONFORME ABNT -->
+			    <!-- <text variable="URL" prefix=" Disponível em: &lt;" suffix="&gt;."/> RETIREI AS ENTRADAS DAS URLs, CONFORME ABNT -->
     <text variable="URL" prefix=" Disponível em: " suffix="."/>
     <date variable="accessed" prefix=". Acesso em: " suffix=".">
       <date-part name="day" suffix=" "/>
@@ -352,7 +360,7 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
       <else-if match="any" type="book chapter">
         <group delimiter=", ">
           <group>
-            <text variable="volume" prefix="v. "/>
+            <text variable="volume" prefix="v. " suffix=". "/>
             <text variable="page" prefix="p. "/>
 	            <!--Inseri este campo 'extra' caso queira colocar alguma observacao, como 'nome da coleção', 'nome da série' etc. -->
 	            <!-- <text variable="note" prefix=". " suffix=""/> -->
@@ -369,12 +377,10 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
   <macro name="genre">
     <text variable="genre"/>
   </macro>
-												<!-- ORIENTADOR: PARA INSERIR NO PREENCHIMENTO DOS DADOS DA TESE -->
+
+<!-- ORIENTADOR: PARA INSERIR NO PREENCHIMENTO DOS DADOS DE DISSERTAÇÕES E TESES, NO CAMPO 'EXTRA' -->
   <macro name="orientador">
     <text variable="orientador"/>
-  </macro>
-  <macro name="folhas">							<!-- INSERE A QUANTIDADE DE FOLHAS NO PREENCHIMENTO DOS DADOS DA TESE -->
-    <text variable="folhas"/>
   </macro>
 
   <macro name="section">
@@ -479,10 +485,10 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
             <text macro="edition" suffix="., "/> <!-- ADICIONEI A VÍRGULA PARA SEPARAR A EDIÇÃO DO LOCAL DE PUBLICAÇÃO -->
             <!--Local, data, etc-->
             <text macro="publisher" suffix=". "/>
-          <text variable="folhas" suffix="p. "/>									<!-- ADICIONEI A QUANTIDADE DE PÁGINAS NA OBRA, BASTA INSERIR NO CAMPO "EXTRA" A OPÇÃO "FOLHAS: n.º de páginas" -->
+            <text variable="number-of-pages" suffix=" p. "/>									<!-- ADICIONA A QUANTIDADE DE PÁGINAS NA OBRA -->
 	            <!-- Inseri este campo 'extra' caso queira colocar alguma observacao -->
 	            <text variable="note" suffix=". "/>
-            <text macro="collection-title" prefix="(" suffix=")."/>	<!-- AQUI INSERE A COLEÇÃO OU SÉRIE DA OBRA -->
+            <text macro="collection-title" prefix="(" suffix=")."/>								<!-- AQUI INSERE A COLEÇÃO OU SÉRIE DA OBRA -->
             <!--Dados complementares "pagina, volume"-->
             <!--<text macro="locators"/>-->							<!-- REMOVIDO PARA EVITAR DUPLICIDADE DE INFORMAÇÃO SOBRE A SÉRIE OU COLEÇÃO DA OBRA -->
             <text macro="access"/>
@@ -508,7 +514,7 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
             <text macro="translator" suffix=". "/>
 <!--            <text variable="collection-title" suffix=" "/>  AQUI INSERIA A SÉRIE OU COLEÇÃO DENTRO DO TEXTO -->
             <!--Edicao-->
-            <text macro="edition" suffix=". "/>
+            <text macro="edition" suffix="., "/>														<!-- A VÍRGULA QUE SEPARA A EDIÇÃO DO LOCAL DA OBRA -->
             <!--Local, data, etc-->
             <text macro="publisher" suffix=". "/>
             <!--Dados complementares "pagina, volume"-->
@@ -546,9 +552,9 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
             <text macro="author" suffix=". "/>
             <!--Titulo-->
             <text macro="title" suffix=". "/>
-            <text macro="orientador" prefix="Orientador: " suffix=". "/> 												<!-- INSERINDO ORIENTADOR NA TESE -->
+            <text macro="orientador" prefix="Orientador: " suffix=". "/> 							<!-- INSERINDO ORIENTADOR NA TESE -->
             <text macro="issued-year" suffix=". "/>
-            <text macro="folhas" suffix=" f. "/>																		<!-- INSERINDO FOLHAS DA TESE -->
+            <text variable="number-of-pages" suffix=" f. "/>										<!-- INSERINDO FOLHAS DE DISSERTAÇÕES E TESES -->
             <!--Tipo-->
             <text macro="genre" suffix=" - "/>
             <!--Local, data, etc-->
@@ -761,7 +767,9 @@ em caixa alta. Utiliza-se antes do nome da conferencia a expressao "In". Segundo
 	            <!-- Neste campo 'extra' podemos inserir o local da publicação do documento -->
 	            <text variable="note" suffix=""/>
           <!--Data-->
-          <text macro="issued" suffix=". "/> <!-- REMOVI O prefix=", " DO ORIGINAL -->
+          <text macro="issued" suffix=". "/>													<!-- REMOVI O prefix=", " DO ORIGINAL -->
+            <text macro="number-of-pages" suffix=" p. "/>									<!-- INSERINDO PÁGINAS DO DOCUMENTO -->
+            <text macro="section" prefix="(" suffix=") "/>										<!-- INSERINDO INFORMAÇÕES ADICIONAIS SOBRE O DOCUMENTO, ENTRE PARÊNTESES -->
           <!--URL, data do acesso-->
           <text macro="access"/>
           <text variable="medium"/>
